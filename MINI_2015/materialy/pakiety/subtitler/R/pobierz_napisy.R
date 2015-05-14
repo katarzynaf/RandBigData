@@ -81,7 +81,9 @@ atrybuty_pobierz <- function(url_napisow){
 pobierz_rozpakuj <- function(pobierz_attrs){
       dir_name <- pobierz_attrs["data-installer-file-name"]
       tmp <- tempfile()
-      download.file(pobierz_attrs["rel"],tmp)
+      if(Sys.info()["sysname"]=="Windows")
+            download.file(paste0(pobierz_attrs["rel"],".zip"),tmp) else
+            download.file(pobierz_attrs["rel"],tmp)
       if( dir_name%in%dir() )
             message("Uwaga, nadpisanie istniejacych plikow!") else
                   dir.create(dir_name)
